@@ -67,6 +67,7 @@ namespace MERC_P4NL
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(284, 23);
             txtUsername.TabIndex = 1;
+            txtUsername.KeyPress += txtUsername_KeyPress;
             // 
             // txtPassword
             // 
@@ -181,7 +182,7 @@ namespace MERC_P4NL
             ResumeLayout(false);
         }
 
-        
+
 
         #endregion
 
