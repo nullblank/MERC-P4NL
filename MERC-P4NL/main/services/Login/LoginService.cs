@@ -10,7 +10,7 @@ namespace MERC_P4NL.main.services.Login
     public interface LoginService
     {
         public Supabase.Client client { get; set; }
-        public UserModel user { get; set; }
+        public UserModel userModel { get; set; }
         public Task<bool> authenticate(int user, String auth);
     }
 }

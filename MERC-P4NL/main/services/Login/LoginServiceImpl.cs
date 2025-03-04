@@ -13,24 +13,36 @@ namespace MERC_P4NL.main.services.Login
     class LoginServiceImpl : LoginService
     {
         public Supabase.Client client { get; set; }
-        public UserModel user { get; set; }
-        private LoginServiceJDBC loginServiceJDBC;
+        public UserModel userModel { get; set; }
 
         public LoginServiceImpl (Supabase.Client client)
         {
             this.client = client;
-            this.loginServiceJDBC = new LoginServiceJDBCImpl(client);
         }
 
         public async Task<bool> authenticate (int user, String auth)
         {
             try
             {
-                var userModel = await loginServiceJDBC.getUserAsync(user);
-                if (userModel == null) return false;
-
-                this.user = userModel;
-                return this.user?.Auth == auth;
+                LoginServiceJDBC loginServiceJDBC = new LoginServiceJDBCImpl(client);
+                UserModel userModel = await loginServiceJDBC.getUserAsync(user);
+                if (userModel != null)
+                {
+                    if (userModel.Id == user && userModel.Auth == auth)
+                    {
+                        this.userModel = userModel;
+                        return true;
+                    }
+                    else
+                    {
+                        this.userModel = null;
+                        return false;
+                    }
+                } else
+                {
+                    this.userModel = null;
+                    return false;
+                }
             }
             catch (Exception e)
             {

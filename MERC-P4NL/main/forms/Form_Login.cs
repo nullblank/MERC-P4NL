@@ -3,6 +3,7 @@ using MERC_P4NL.main.forms;
 using MERC_P4NL.main.helper;
 using MERC_P4NL.main.services.DataSource;
 using MERC_P4NL.main.services.Login;
+using MERC_P4NL.main.tests;
 using System.Drawing.Text;
 using System.Threading.Tasks;
 
@@ -19,20 +20,12 @@ namespace MERC_P4NL
         private void LoginForm_Load(object sender, EventArgs e)
         {
             this.BackColor = ColorTranslator.FromHtml("#1e1e1e");
+            //API_UnitTest test = new API_UnitTest();
         }
 
         private void btn_Login_Click(object sender, EventArgs e)
         {
-            int user = 0;
-            try
-            {
-                user = int.Parse(txtUsername.Text);
-                this.authUser(user, txtPassword.Text);
-            }
-            catch (Exception a)
-            {
-                //Application.Exit();
-            }
+            this.authUser(int.Parse(txtUsername.Text), txtPassword.Text);
         }
 
         private async Task authUser(int user, String pass)
@@ -41,9 +34,9 @@ namespace MERC_P4NL
             bool isAuth = await login.authenticate(user, pass);
             if (isAuth)
             {
-                if (!login.user.Equals(null))
+                if (!login.userModel.Equals(null))
                 {
-                    MessageBox.Show("Welcome " + login.user.Mercenary);
+                    MessageBox.Show("Welcome " + login.userModel.Mercenary);
                     Form_Landing form_Landing = new Form_Landing();
                     FormController formController = new FormController(this, form_Landing);
                     formController.hideFormer();

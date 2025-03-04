@@ -27,17 +27,17 @@ namespace MERC_P4NL.main.models
         public string Auth { get; set; }
 
         [Column(TableColumnEnums.version)]
-        public string Version { get; set; }
+        public int Version { get; set; }
 
-        [Column(TableColumnEnums.updated)]
-        public string Updated { get; set; }
+        //[Column(TableColumnEnums.updated)]
+        //public string Updated { get; set; }
 
-        [Column(TableColumnEnums.created)]
-        public string Created { get; set; }
+        //[Column(TableColumnEnums.created)]
+        //public string Created { get; set; }
 
-        public static implicit operator UserModel(ModeledResponse<UserModel> v)
-        {
-            return v.Model;
-        }
+        //public static implicit operator UserModel(ModeledResponse<UserModel> v)
+        //{
+        //    return v.Model;
+        //}
     }
 }
